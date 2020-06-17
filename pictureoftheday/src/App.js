@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navigation } from './components/Header';
-import { Video } from './video/Video'
-import { MainPage } from './pages/mainPage'
+import { Video } from './video/Video';
+import { MainPage } from './pages/mainPage';
+import { Calendar } from './pages/calendar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
 import './App.css';
+
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path='/' exact>
           <MainPage />
         </Route>
-        <Route path='/calendar'> <h2>Calendar</h2></Route>
+        <Route path='/calendar'> <h2><Calendar /></h2></Route>
 
       </Router>
     </div>
