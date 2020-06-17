@@ -16,7 +16,7 @@ const getDate = () => {
 export const MainPage = () => {
     const today = getDate();
     const { loading, error, request, clearError } = useHttp();
-    const [date, setDate] = useState(today);
+    const [date, setDate] = useState('2020-06-17');
     const [pictureData, setData] = useState(null)
     const abortController = new AbortController()
     const getDayInfo = async () => {
