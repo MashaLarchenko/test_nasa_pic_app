@@ -31,7 +31,7 @@
   grid-template-rows: 1fr 1fr 5fr 3fr;
   width: 80%;
   margin: 0 auto;
-  max-height: 85vh;
+  max-height: 80vh;
   justify-items: center;
   padding-bottom: 10px;
   margin-top: -4%;
@@ -95,6 +95,10 @@
   background-position-x: center;
   background-size: cover;
   text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 150%;
+  color: #1e1f20;
   span {
     background-color: rgba(243, 235, 235, 0.336);
     width: 100%;
@@ -108,12 +112,20 @@
   font-weight: 600;
 }
 
-
-#nav_btn{
+#nav_btn {
   background: #160572cf;
-  padding: 5px 20px
-  span {
+  padding: 5px 20px span {
     font-weight: 600;
-
   }
 }
+
+
+.loading {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+} 

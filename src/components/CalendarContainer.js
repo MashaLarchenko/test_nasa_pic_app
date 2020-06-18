@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
 import { CalendarItem } from './CalendarItem';
 import { useEffect } from 'react';
-import { useHttp } from '../hooks/http.hook';
 import { getYearArray } from '../resourses/yearArray';
 import { getMonthArray } from '../resourses/monthArray';
 import { daysInMonth } from '../resourses/daysArray';
@@ -27,10 +29,14 @@ export const CalendarContainer = () => {
   const context = useContext(Context);
   const category = ['years', 'month', 'days']
   const classes = useStyles();
-  // let periodArray = [];
   const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
   const [periodArray, setPeriodArray] = useState(getYearArray());
+  const [state, setState] = useState({
+    years: '1995',
+    month: '07',
+    days: '17'
+  })
 
   const name = category[count - 1];
 
@@ -59,10 +65,9 @@ export const CalendarContainer = () => {
   return (
     <div className="calendar_wrapper">
       <ul className='calendar_container'>
-        {console.log(periodArray)}
         {periodArray.map((year, index) => {
           if (index + 1 <= page * 9 && index + 1 > page * 9 - 9) {
-            return <CalendarItem category={name} name={year} key={index} index={index} setCount={setCount} />
+            return <CalendarItem category={name} name={year} key={index} index={index} setCount={setCount} setState={setState} state={state}/>
           }
         }
         )}

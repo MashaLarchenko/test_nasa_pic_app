@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../context/Context'
 import { Link } from 'react-router-dom'
 
 
-export const CalendarItem = ({ category, name, data, index, setCount }) => {
+export const CalendarItem = ({ category, name, data, index, setCount, setState, state }) => {
   const context = useContext(Context);
   let imgNum = index + 1;
   if (index > 26) {
@@ -15,19 +16,21 @@ export const CalendarItem = ({ category, name, data, index, setCount }) => {
     imgNum = 18 - index;
   }
   const imgUrl = require(`../resourses/images/${imgNum}.jpg`);
-  const [state, setState] = useState({
-    years: '1995',
-    month: '07',
-    days: '17'
-  })
+  // const [state, setState] = useState({
+  //   years: '1995',
+  //   month: '07',
+  //   days: '17'
+  // })
 
-  const [dateCategory, setCategory] = useState('years')
+  useEffect(() => {
+    setState(context.dateState);
+    console.log(context.dateState, 'useEffect', state)
+  }, [category])
 
   const clickHandler = () => {
     state[category] = name;
     context.category = name;
     setCount(context.count + 1);
-    setCategory(category);
     context.count++;
     setState({
       ...state
@@ -39,7 +42,6 @@ export const CalendarItem = ({ category, name, data, index, setCount }) => {
     context.dateState.days = name;
     context.count = 1;
     setCount(context.count)
-    setCategory(category);
     setState({
       ...state
     })
@@ -47,7 +49,11 @@ export const CalendarItem = ({ category, name, data, index, setCount }) => {
 
   useEffect(() => {
     context.dateState = state;
+    console.log(context.dateState, 'useEffect')
   }, [state])
+
+
+
   return (
     <>
       {category === 'days' ? (
