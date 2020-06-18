@@ -15,16 +15,25 @@ const getDate = () => {
 
 export const MainPage = () => {
     const today = getDate();
-    const { loading, error, request, clearError } = useHttp();
+    const { loading, request, error, clearError } = useHttp();
     const [date, setDate] = useState('2020-06-17');
+    const [errorData, setError] = useState(error);
     const [pictureData, setData] = useState(null)
     const abortController = new AbortController()
+
+
+    useEffect(() => {
+        if (localStorage.length !== 0) {
+            setDate(localStorage.getItem('date'));
+        }
+    }, [])
+
+
     const getDayInfo = async () => {
         try {
             const data = await request(`https://api.nasa.gov/planetary/apod?api_key=xIeznLFPQdDuFy7gi8fMReMNEtfpybAScst0phzb&date=${date}`, abortController)
             setData(data)
         } catch (error) {
-            console.log(error.stack)
         }
 
     }
@@ -36,9 +45,13 @@ export const MainPage = () => {
             fetchData()
         }, [date])
 
+    useEffect(() => {
+        localStorage.clear('date');
+    }, [error, clearError])
+
     return (
         <>
-            {loading || pictureData === null ? (<Loading />) : (
+            {(error !== null) ? <div>{error}</div> : loading || pictureData === null ? (<Loading />) : (
                 <>
                     <DatePicker setDate={setDate} date={pictureData.date} />
                     <Card imageInfo={{ ...pictureData }} />

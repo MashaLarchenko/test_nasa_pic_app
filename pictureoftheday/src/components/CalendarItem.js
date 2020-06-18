@@ -34,20 +34,27 @@ export const CalendarItem = ({ category, name, data, index, setCount }) => {
     })
   }
 
+  const dayClickHandler = () => {
+    state[category] = name;
+    context.dateState.days = name;
+    context.count = 1;
+    setCount(context.count)
+    setCategory(category);
+    setState({
+      ...state
+    })
+  }
+
   useEffect(() => {
     context.dateState = state;
   }, [state])
   return (
     <>
       {category === 'days' ? (
-        <Link to="/days" className='calendar_item days' style={{ backgroundImage: `url(${imgUrl})` }} onClick={() => {
-          context.count = 1;
-          setCount(context.count)
-        }}>
-          <li>
-            <span>
-              {name}
-            </span></li>
+        <Link to="/days" className='calendar_li_item' style={{ backgroundImage: `url(${imgUrl})` }} onClick={dayClickHandler}>
+          <span>
+            {name}
+          </span>
         </Link>
 
       ) : (<li className='calendar_item' style={{ backgroundImage: `url(${imgUrl})` }} onClick={clickHandler}>

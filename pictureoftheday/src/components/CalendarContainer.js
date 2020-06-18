@@ -69,9 +69,9 @@ export const CalendarContainer = () => {
       </ul>
       <div className={classes.root}>
         <ButtonGroup size="small" aria-label="small outlined button group">
-          <Button onClick={onPrevPage}>Back</Button>
-          <Button>{page}</Button>
-          <Button onClick={onNextPage}>Next</Button>
+          <Button onClick={onPrevPage} id='nav_btn'>Back</Button>
+          <Button id='nav_btn'>{page}</Button>
+          <Button onClick={onNextPage} id='nav_btn'>Next</Button>
         </ButtonGroup></div>
 
     </div>

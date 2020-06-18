@@ -6,12 +6,13 @@ import ReactPlayer from "react-player"
 const useStyles = makeStyles({
   playerWrapper: {
     position: "relative",
-    paddingTop: "56.25%",
+    width: '50%'
+    // paddingTop: "56.25%",
   },
 
   reactPlayer: {
     position: "absolute",
-    top: "10%",
+    top: "5%",
     left: "0",
   },
 })

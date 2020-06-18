@@ -1,16 +1,15 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useStyle } from 'react';
 import { VideoPlayer } from '../video/video_player';
-import { useHttp } from '../hooks/http.hook';
-
-
-export const Card = ({ imageInfo }) => {
+const classes = {
+    'margin-top': '0',
+}
+export const Card = ({ imageInfo, page }) => {
     const { date, url, title, explanation, media_type } = imageInfo;
     return (
-        <div className='card_wrapper'>
+        <div className='card_wrapper' style={classes}>
             <h2>{title}</h2>
             <h2>{date}</h2>
-            {media_type === 'video' ? <VideoPlayer url={url}/> : <img src={url} />}
+            {media_type === 'video' ? <VideoPlayer url={url} /> : <img src={url} />}
             <p>{explanation}</p>
         </div>
     )

@@ -4,6 +4,7 @@ export const useHttp = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const KEY = 'xIeznLFPQdDuFy7gi8fMReMNEtfpybAScst0phzb';
+    // const context = useContext(Context);
 
 
     const request = useCallback(
@@ -16,8 +17,6 @@ export const useHttp = () => {
                 console.log(response, 'response')
 
                 const data = await response.json();
-                console.log(data, 'data')
-
                 if (!response.ok) {
                     throw new Error(data.message || 'Somth went wrong')
                 }
@@ -27,13 +26,16 @@ export const useHttp = () => {
                 abortController.abort()
                 setLoading(false)
                 setError(error.message)
-                console.log(error.message)
                 throw error
             }
         }, [])
 
     const clearError = useCallback(() => setError(null), [])
+    const er = () => {
+        console.log(error)
+    }
 
-    return { loading, error, request, clearError }
+    er()
+    return { loading, error, request, clearError, setError }
 
 }

@@ -1,33 +1,23 @@
 import React, { useContext } from 'react';
 import { Card } from '../components/Card';
-import { DatePicker } from '../components/DatePicker';
 import { Loading } from '../components/Loading';
 import { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { Context } from '../context/Context'
 
-const getDate = () => {
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    return `${year}-${month + 1}-${day}`
-}
-
 const monthFormatter = (month) => {
     const monthAray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    if (month.length < 3) return month
+
     const number = monthAray.findIndex(item => {
         return item === month
     });
-    let monthNumber = 0;
-    if (number + 1 < 10) {
+    let monthNumber = number + 1;
+    if (number < 10) {
         monthNumber = `0${number + 1}`;
     } else {
         monthNumber = number + 1
     }
-
-    console.log(month, number, monthNumber, 'converter')
-
     return monthNumber;
 }
 
@@ -40,22 +30,22 @@ const dayFormatter = (day) => {
     return day;
 }
 export const DayPage = () => {
-    // const today = getDate();
     const { loading, error, request, clearError } = useHttp();
-    // const [date, setDate] = useState('2020-06-17');
     const context = useContext(Context);
-    console.log(context.dateState)
     const month = monthFormatter(context.dateState.month);
     const day = dayFormatter(context.dateState.days)
     const date = `${context.dateState.years}-${month}-${day}`;
-    console.log(date, 'date to one pg')
+    console.log(date, 'date')
     const [pictureData, setData] = useState(null)
     const abortController = new AbortController()
     const getDayInfo = async () => {
         try {
             const data = await request(`https://api.nasa.gov/planetary/apod?api_key=xIeznLFPQdDuFy7gi8fMReMNEtfpybAScst0phzb&date=${date}`, abortController)
+            console.log(data)
             setData(data)
+            localStorage.setItem('date', date)
         } catch (error) {
+            console.log('h')
             console.log(error.stack)
         }
 
@@ -66,15 +56,20 @@ export const DayPage = () => {
                 await getDayInfo()
             }
             fetchData()
+
+
         }, [date])
+
+    useEffect(() => {
+        console.log(error)
+    }, [error, clearError])
+
+
 
     return (
         <>
-            {loading || pictureData === null ? (<Loading />) : (
-                <>
-                    {/* <DatePicker setDate={setDate} date={pictureData.date} /> */}
-                    <Card imageInfo={{ ...pictureData }} />
-                </>
+            {(error !== null) ? <div>{error}</div> : loading || pictureData === null ? (<Loading />) : (
+                <Card imageInfo={{ ...pictureData }} page='day'/>
             )}
         </>
     )

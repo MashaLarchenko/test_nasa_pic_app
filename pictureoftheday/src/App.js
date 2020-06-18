@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Navigation } from './components/Header';
 import { Video } from './video/Video';
@@ -11,17 +11,29 @@ import './App.css';
 
 
 function App() {
+  const context = useContext(Context);
+
+  useEffect(() => {
+    if (localStorage.length !== 0) {
+      const storageDate = localStorage.getItem('date');
+      const date = storageDate.split('-');
+      context.dateState.years = date[0];
+      context.dateState.month = date[1];
+      context.dateState.days = date[2];
+    }
+  }, [])
+
   return (
     <div className="App">
       <Video />
-      <Context.Provider value={{ category: 'years', count: 1 }}>
+      <Context.Provider value={context}>
         <Router>
           <Navigation />
           <Route path='/' exact>
             <MainPage />
           </Route>
-          <Route path='/calendar'> <h2><Calendar /></h2></Route>
-          <Route path='/days'> <h2><DayPage /></h2></Route>
+          <Route path='/calendar'> <Calendar /></Route>
+          <Route path='/days'><DayPage /></Route>
         </Router>
       </Context.Provider>
 
