@@ -33,30 +33,17 @@ export const CalendarContainer = () => {
   const [periodArray, setPeriodArray] = useState(getYearArray());
 
   const name = category[count - 1];
-  console.log(name, 'name in cont')
-  console.log(periodArray, 'periodArray')
 
   useEffect(() => {
     if (name === 'years') {
       setPeriodArray(getYearArray());
     } else if (name === 'month') {
       setPeriodArray(getMonthArray());
-    } else setPeriodArray(daysInMonth());
-
+    } else {
+      setPeriodArray(daysInMonth(context.dateState.years, context.dateState.month));
+    }
   }, [count])
 
-  // switch (name) {
-  //   case 'years':
-  //     setPeriod(getYearArray());
-  //     break;
-  //   case 'month':
-  //     setPeriod(getMonthArray());
-  //     break;
-  //   case 'days':
-  //     setPeriod(daysInMonth());
-  //     break;
-
-  // }
   const onNextPage = () => {
     if (page * 9 > periodArray.length) {
       setPage(page);
@@ -72,6 +59,7 @@ export const CalendarContainer = () => {
   return (
     <div className="calendar_wrapper">
       <ul className='calendar_container'>
+        {console.log(periodArray)}
         {periodArray.map((year, index) => {
           if (index + 1 <= page * 9 && index + 1 > page * 9 - 9) {
             return <CalendarItem category={name} name={year} key={index} index={index} setCount={setCount} />

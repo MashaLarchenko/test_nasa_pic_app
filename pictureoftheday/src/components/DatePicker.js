@@ -28,11 +28,7 @@ export const DatePicker = ({ setDate, date }) => {
         const currentDate = date.split('-');
 
         if (newDate[0] !== currentDate[0] && newDate[1] !== currentDate[1] && newDate[2] !== currentDate[2]) {
-            console.log(newDate, currentDate)
-            console.log(pickedDate !== date)
-            console.log('new date ')
             setDate(pickedDate)
-
         }
     }, [pickedDate])
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Navigation } from './components/Header';
 import { Video } from './video/Video';
 import { MainPage } from './pages/mainPage';
+import { DayPage } from './pages/pickedDate';
 import { Calendar } from './pages/calendar';
 import { Context } from './context/Context'
 
@@ -20,7 +21,7 @@ function App() {
             <MainPage />
           </Route>
           <Route path='/calendar'> <h2><Calendar /></h2></Route>
-
+          <Route path='/days'> <h2><DayPage /></h2></Route>
         </Router>
       </Context.Provider>
 
