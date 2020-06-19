@@ -11,7 +11,8 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        height:' 80vh'
+        height:'80vh',
+        gridColumn: '2'
     },
   });
 

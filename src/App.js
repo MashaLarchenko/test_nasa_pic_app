@@ -13,7 +13,6 @@ import './App.css';
 
 function App() {
   const context = useContext(Context);
-
   useEffect(() => {
     if (localStorage.length !== 0) {
       const storageDate = localStorage.getItem('date');
@@ -24,6 +23,8 @@ function App() {
     }
   }, [])
 
+
+
   return (
     <div className="App">
       <Video />
@@ -33,7 +34,7 @@ function App() {
           <Route path='/' exact>
             <MainPage />
           </Route>
-          <Route path='/calendar'> <Calendar /></Route>
+          <Route path='/calendar'> <Calendar/></Route>
           <Route path='/days'><DayPage /></Route>
         </Router>
       </Context.Provider>

@@ -11,9 +11,6 @@ import { getYearArray } from '../resourses/yearArray';
 import { getMonthArray } from '../resourses/monthArray';
 import { DaysInMonth } from '../resourses/daysArray';
 import { Context } from '../context/Context'
-import { useHttp } from '../hooks/http.hook';
-import { monthFormatter } from '../utils/monthFormatter';
-import { dayFormatter } from '../utils/dayFormatter';
 import { Loading } from '../components/Loading';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const daysImg = [];
-
 
 export const CalendarContainer = () => {
   const [loading, setLoading] = useState(false);
@@ -49,8 +43,10 @@ export const CalendarContainer = () => {
 
   useEffect(() => {
     if (name === 'years') {
+      setDayImages(null);
       setPeriodArray(getYearArray());
     } else if (name === 'month') {
+      setDayImages(null);
       setPeriodArray(getMonthArray());
     } else {
       const fetchData = async () => {
@@ -66,7 +62,6 @@ export const CalendarContainer = () => {
 
   useEffect(() => {
     if (name === 'days') {
-      console.log(dayData, 'dayData')
       setPeriodArray(dayData.days)
       setDayImages(dayData.img)
     }
@@ -88,12 +83,10 @@ export const CalendarContainer = () => {
   return (
     <div className="calendar_wrapper">
       <ul className='calendar_container'>
-        {console.log(periodArray)}
         {loading ? <Loading /> : periodArray.map((year, index) => {
           if (index + 1 <= page * 9 && index + 1 > page * 9 - 9) {
-            console.log(dayImages, 'dayImages')
             if (dayImages !== null) {
-              return <CalendarItem category={name} name={year[index]} key={index} index={index} setCount={setCount} setState={setState} state={state}
+              return <CalendarItem category={name} name={year} key={index} index={index} setCount={setCount} setState={setState} state={state}
                 img={dayImages[index]} />
             }
             else {

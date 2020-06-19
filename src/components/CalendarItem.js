@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 export const CalendarItem = ({ category, name, data, index, setCount, setState, state, img }) => {
-  console.log(img, 'image ')
+  console.log(name, 'name')
   const context = useContext(Context);
   let imgNum = index + 1;
   if (index > 26) {

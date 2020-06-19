@@ -7,5 +7,6 @@ export const Context = createContext({
         years: '1995',
         month: '06',
         days: '17'
-    }
+    },
+    isCalendarClicked: false
 })
