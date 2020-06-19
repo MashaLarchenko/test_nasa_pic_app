@@ -9,8 +9,12 @@ import { CalendarItem } from './CalendarItem';
 import { useEffect } from 'react';
 import { getYearArray } from '../resourses/yearArray';
 import { getMonthArray } from '../resourses/monthArray';
-import { daysInMonth } from '../resourses/daysArray';
+import { DaysInMonth } from '../resourses/daysArray';
 import { Context } from '../context/Context'
+import { useHttp } from '../hooks/http.hook';
+import { monthFormatter } from '../utils/monthFormatter';
+import { dayFormatter } from '../utils/dayFormatter';
+import { Loading } from '../components/Loading';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,21 +27,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const daysImg = [];
 
 
 export const CalendarContainer = () => {
+  const [loading, setLoading] = useState(false);
   const context = useContext(Context);
   const category = ['years', 'month', 'days']
   const classes = useStyles();
   const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
+  const [dayData, setDayData] = useState(null)
   const [periodArray, setPeriodArray] = useState(getYearArray());
+  const [dayImages, setDayImages] = useState(null)
   const [state, setState] = useState({
     years: '1995',
     month: '07',
     days: '17'
   })
-
   const name = category[count - 1];
 
   useEffect(() => {
@@ -46,9 +53,25 @@ export const CalendarContainer = () => {
     } else if (name === 'month') {
       setPeriodArray(getMonthArray());
     } else {
-      setPeriodArray(daysInMonth(context.dateState.years, context.dateState.month));
+      const fetchData = async () => {
+        setLoading(true)
+        const dataImg = await DaysInMonth(context.dateState.years, context.dateState.month);
+        console.log(dataImg, 'dataImg')
+        setDayData(dataImg)
+        setLoading(false)
+      }
+      fetchData()
     }
   }, [count])
+
+  useEffect(() => {
+    if (name === 'days') {
+      console.log(dayData, 'dayData')
+      setPeriodArray(dayData.days)
+      setDayImages(dayData.img)
+    }
+  }, [dayData])
+
 
   const onNextPage = () => {
     if (page * 9 > periodArray.length) {
@@ -65,9 +88,18 @@ export const CalendarContainer = () => {
   return (
     <div className="calendar_wrapper">
       <ul className='calendar_container'>
-        {periodArray.map((year, index) => {
+        {console.log(periodArray)}
+        {loading ? <Loading /> : periodArray.map((year, index) => {
           if (index + 1 <= page * 9 && index + 1 > page * 9 - 9) {
-            return <CalendarItem category={name} name={year} key={index} index={index} setCount={setCount} setState={setState} state={state}/>
+            console.log(dayImages, 'dayImages')
+            if (dayImages !== null) {
+              return <CalendarItem category={name} name={year[index]} key={index} index={index} setCount={setCount} setState={setState} state={state}
+                img={dayImages[index]} />
+            }
+            else {
+              return <CalendarItem category={name} name={year} key={index} index={index} setCount={setCount} setState={setState} state={state}
+                img={null} />
+            }
           }
         }
         )}

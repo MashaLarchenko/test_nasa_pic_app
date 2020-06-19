@@ -33,7 +33,6 @@ export const MainPage = () => {
 
 
     const getDayInfo = async () => {
-        console.log(date, 'getDayInfo')
         try {
             const data = await request(`https://api.nasa.gov/planetary/apod?api_key=xIeznLFPQdDuFy7gi8fMReMNEtfpybAScst0phzb&date=${date}`, abortController)
             setData(data)
@@ -45,7 +44,6 @@ export const MainPage = () => {
 
     useEffect(
         () => {
-        console.log(date)
             const fetchData = async () => {
                 await getDayInfo()
             }

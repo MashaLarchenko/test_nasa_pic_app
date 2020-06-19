@@ -6,31 +6,9 @@ import { Error } from '../components/Error';
 import { useState, useEffect } from 'react';
 import { useHttp } from '../hooks/http.hook';
 import { Context } from '../context/Context';
+import { monthFormatter } from '../utils/monthFormatter';
+import { dayFormatter } from '../utils/dayFormatter';
 
-const monthFormatter = (month) => {
-    const monthAray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    if (month.length < 3) return month
-
-    const number = monthAray.findIndex(item => {
-        return item === month
-    });
-    let monthNumber = number + 1;
-    if (number < 10) {
-        monthNumber = `0${number + 1}`;
-    } else {
-        monthNumber = number + 1
-    }
-    return monthNumber;
-}
-
-
-const dayFormatter = (day) => {
-    if (day < 10) {
-        day = `0${day}`
-    }
-
-    return day;
-}
 export const DayPage = () => {
     const { loading, error, request, clearError } = useHttp();
     const context = useContext(Context);

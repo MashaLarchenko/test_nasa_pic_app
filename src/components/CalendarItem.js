@@ -4,7 +4,8 @@ import { Context } from '../context/Context'
 import { Link } from 'react-router-dom'
 
 
-export const CalendarItem = ({ category, name, data, index, setCount, setState, state }) => {
+export const CalendarItem = ({ category, name, data, index, setCount, setState, state, img }) => {
+  console.log(img, 'image ')
   const context = useContext(Context);
   let imgNum = index + 1;
   if (index > 26) {
@@ -15,16 +16,10 @@ export const CalendarItem = ({ category, name, data, index, setCount, setState, 
   } else if (index > 8) {
     imgNum = 18 - index;
   }
-  const imgUrl = require(`../resourses/images/${imgNum}.jpg`);
-  // const [state, setState] = useState({
-  //   years: '1995',
-  //   month: '07',
-  //   days: '17'
-  // })
+  const imgUrl = img || require(`../resourses/images/${imgNum}.jpg`);
 
   useEffect(() => {
     setState(context.dateState);
-    console.log(context.dateState, 'useEffect', state)
   }, [category])
 
   const clickHandler = () => {
