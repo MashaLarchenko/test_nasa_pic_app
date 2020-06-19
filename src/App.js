@@ -31,11 +31,11 @@ function App() {
       <Context.Provider value={context}>
         <Router>
           <Navigation />
-          <Route path='/' exact>
+          <Route path='/test_nasa_pic_app/' exact>
             <MainPage />
           </Route>
-          <Route path='/calendar'> <Calendar/></Route>
-          <Route path='/days'><DayPage /></Route>
+          <Route path='/test_nasa_pic_app/calendar'> <Calendar/></Route>
+          <Route path='/test_nasa_pic_app/days'><DayPage /></Route>
         </Router>
       </Context.Provider>
 
