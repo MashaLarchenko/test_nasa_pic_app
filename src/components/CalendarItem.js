@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 
 export const CalendarItem = ({ category, name, data, index, setCount, setState, state, img }) => {
-  console.log(name, 'name')
   const context = useContext(Context);
   let imgNum = index + 1;
   if (index > 26) {
@@ -44,7 +43,6 @@ export const CalendarItem = ({ category, name, data, index, setCount, setState, 
 
   useEffect(() => {
     context.dateState = state;
-    console.log(context.dateState, 'useEffect')
   }, [state])
 
 

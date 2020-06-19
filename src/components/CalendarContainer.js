@@ -52,7 +52,6 @@ export const CalendarContainer = () => {
       const fetchData = async () => {
         setLoading(true)
         const dataImg = await DaysInMonth(context.dateState.years, context.dateState.month);
-        console.log(dataImg, 'dataImg')
         setDayData(dataImg)
         setLoading(false)
       }

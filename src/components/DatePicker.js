@@ -21,7 +21,6 @@ export const DatePicker = ({ setDate, date }) => {
     const defaultDate = localStorage.getItem('date') || date;
     const onDatePick = (event) => {
         setNewDate(event.target.value);
-        console.log(pickedDate, 'onDatePick')
     }
 
     useEffect(() => {
@@ -30,8 +29,6 @@ export const DatePicker = ({ setDate, date }) => {
 
         if (newDate[0] !== currentDate[0] || newDate[1] !== currentDate[1] || newDate[2] !== currentDate[2]) {
             localStorage.setItem('date', pickedDate)
-        console.log(pickedDate, 'useEffect')
-
             setDate(pickedDate)
         }
     }, [pickedDate])
